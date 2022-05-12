@@ -1,0 +1,45 @@
+ <html>
+    <head> 
+        <script> 
+          let set = prompt("Укажите дату:","ММ/ДД/ГГГГ");
+          let setDate = new Date(set);
+          switch(setDate.getDay()){
+              case 0:
+                  alert("Воскресение");
+                  console.log(setDate.getDay());
+                  break;
+              case 1:
+                  alert("Понедельник");
+                  console.log(setDate.getDay());
+                  break;
+              case 2:
+                  alert("Вторник");
+                  console.log(setDate.getDay());
+                  break;
+              case 3:
+                  alert("Среда");
+                  console.log(setDate.getDay());
+                  break;
+              case 4:
+                  alert("Четверг");
+                  console.log(setDate.getDay());
+                  break;
+              case 5:
+                  alert("Пятница");
+                  console.log(setDate.getDay());
+                  break;
+              case 6:
+                  alert("Суббота");
+                  console.log(setDate.getDay());
+                  break;
+              default:
+                  alert("Введенная дата должна соответствовать формату ММ/ДД/ГГГГ");
+                  break;
+          }
+           
+
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
