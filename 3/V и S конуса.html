@@ -1,0 +1,19 @@
+ <html>
+    <head> 
+        <script> 
+            let sBottom = Number(prompt("Введите площадь основания конуса:"));
+            
+            let dBottom = 2*Math.sqrt(sBottom/Math.PI);  //диаметр основания конуса, он же высота конуса
+            let V = (1/3*dBottom*sBottom).toFixed(2);   //обьем конуса
+            let r = dBottom/2;                         //радиус основания
+            let l = Math.sqrt(dBottom**2+r**2);       //образующая конуса
+            let S = (Math.PI*r*(l+r)).toFixed(2);    //площадь полной поверхности конуса
+
+            alert(`При площади основания конуса равном: ${sBottom} см. \n Обьем конуса равен: ${V} cм.куб. \n Площадь полной поверхности конуса равна: ${S} cм.кв.`);
+
+
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
