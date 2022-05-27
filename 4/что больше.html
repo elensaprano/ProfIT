@@ -1,0 +1,40 @@
+ <html>
+    <head> 
+        <script> 
+            let Ax = Number(prompt("Укажите координату x для точки А:"));
+            let Ay = Number(prompt("Укажите координату y для точки А:"));
+            let Bx = Number(prompt("Укажите координату x для точки B:"));
+            let By = Number(prompt("Укажите координату y для точки B:"));
+            let Cx = Number(prompt("Укажите координату x для точки C:"));
+            let Cy = Number(prompt("Укажите координату y для точки C:"));
+
+            let OA = Math.sqrt(Math.pow((Ax),2) + Math.pow((Ay),2));
+            let OB = Math.sqrt(Math.pow((Bx),2) + Math.pow((By),2));
+            let AC = Math.sqrt(Math.pow((Ax - Cx),2) + Math.pow((Ay - Cy),2));
+            let BC = Math.sqrt(Math.pow((Bx - Cx),2) + Math.pow((By - Cy),2));
+
+            let Soa = Math.PI * Math.pow(OA,2); //площадь круга
+            let Sob = OB * OB;                  //площадь квадрата 
+            let Sacbc = AC * BC;                //площадь прямоугольника 
+            let result;
+            
+            if (Soa > Sob && Soa > Sacbc) {
+                result = `Площадь круга Soa = ${Soa} с радиусом OA = ${OA} больше площади квадрата Sob = ${Sob} и площади прямоугольника Sacbc = ${Sacbc}`;
+            } else if (Sob > Soa && Sob > Sacbc ) {
+                result = `Площадь квадрата Sob = ${Sob} со стороной OB = ${OB} больше площади круга Soa = ${Soa} и площади прямоугольника Sacbc = ${Sacbc}`;
+            } else if (Sacbc > Sob && Sacbc > Soa) {
+                result = `Площадь прямоугольника Sacbc = ${Sacbc} со сторонами AC = ${AC} BC = ${BC} больше площади квадрата Sob = ${Sob} и площади круга Soa = ${Soa}`;
+            } else if (Soa == Sob) {
+                result = `Площадь круга Soa = ${Soa} равна площади квадрата Sob = ${Sob}`;
+            } else if (Soa == Sacbc) {
+                result = `Площадь круга Soa = ${Soa} равна площади прямоугольника Sacbc = ${Sacbc}`;
+            } else if  (Sob == Sacbc) {
+                result = `Площадь квадрата Sob = ${Sob} равна площади прямоугольника Sacbc = ${Sacbc}`;
+            }
+            
+            alert(result);
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

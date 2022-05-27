@@ -1,0 +1,20 @@
+ <html>
+    <head> 
+        <script> 
+            let x = Number(prompt("Введите значение Х:")); 
+            let y;
+
+            if (x <= -1){
+                y = Math.pow(-x,2) - (4 * x) - 3;
+            } else if (-1 < x && x <= 1){
+                y = x + 1;
+            } else {
+                y = 2 / x;
+            }
+        
+            alert(`При x= ${x}, y= ${y}`)
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
