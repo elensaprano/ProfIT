@@ -1,0 +1,33 @@
+ <html>
+    <head> 
+        <script> 
+            let aBrick = Number(prompt("Ведите положительное число ребро кирпича a:"));
+            let bBrick = Number(prompt("Ведите положительное число ребро кирпича b:"));
+            let cBrick = Number(prompt("Ведите положительное число ребро кирпича c:"));
+            let xHole = Number(prompt("Ведите положительное число сторона отверстия x:"));
+            let yHole = Number(prompt("Ведите положительное число сторона отверстия y:"));
+
+            let result;
+
+            if ( aBrick > 0 && bBrick > 0 && cBrick > 0 && xHole > 0 && yHole > 0){
+                if ( aBrick <= xHole && bBrick <= yHole || aBrick <= yHole && bBrick <= xHole ) {
+                    result = `Кирпич войдет в отверстие размером x= ${xHole} y= ${yHole} сторонами кирпича a= ${aBrick} b= ${bBrick}`;
+                } else if ( bBrick <= yHole && cBrick <= xHole || bBrick <= xHole && cBrick <= yHole ) {
+                    result = `Кирпич войдет в отверстие размером x= ${xHole} y= ${yHole} сторонами кирпича b= ${bBrick} c= ${cBrick}`;
+                } else if ( aBrick <= yHole && cBrick <= xHole || aBrick <= xHole && cBrick <= yHole ) {
+                    result = `Кирпич войдет в отверстие размером x= ${xHole} y= ${yHole} сторонами кирпича a= ${aBrick} c= ${cBrick}`;
+                } else {
+                    result = `Кирпич не войдет в отверстие при сторонах кирпича a= ${aBrick} b= ${bBrick} c= ${cBrick} и сторонах отверстия x= ${xHole} y= ${yHole}`;
+                }
+            } else {
+                result = "Введите только положительные числа";
+                location.reload();
+            };
+
+            alert (result);
+
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

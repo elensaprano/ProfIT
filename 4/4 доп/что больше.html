@@ -1,0 +1,52 @@
+ <html>
+    <head> 
+        <script> 
+
+            let A = Number(prompt("Ведите целое число А:"));
+            let B = Number(prompt("Ведите целое число B:"));
+            let C = Number(prompt("Ведите целое число C:"));
+
+            let result, x, y;
+
+            if (A > C && C > B) {                  //A-max, B-min, C-среднее
+                x = (A - B) * 2;
+                y = B * C; 
+                console.log("A > C && C > B  1");
+            } else if (A > B  && B > C) {          //A-max, B-среднее, C-min
+                x = (A - C) * 2;
+                y = C * B;
+                console.log("A > B  && B > C  2");
+            } else if (B > A  && A > C) {          //A-среднее, B-max, C-min
+                x = (B - C) * 2;
+                y = C * A;
+                console.log("B > A  && A > C  3");
+            } else if (C > A  && A > B) {          //A-среднее, B-min, C-max
+                x = (C - B) * 2;
+                y = B * A;
+                console.log("C > A  && A > B  4");
+            } else if (C > B  && B > A) {          //A-min, B-среднее, C-max
+                x = (C - A) * 2;
+                y = A * B;
+                console.log("C > B  && B > A  5");
+            } else if (B > C  && C > A) {          //A-min, B-max, C-среднее
+                x = (B - A) * 2;
+                y = A * C;
+                console.log("B > C  && C > A   6");
+            };
+
+            if (x < y) {
+                result = `Произведение меньшего и среднего числа больше \
+                удвоенной разности наибольшего и наименьшего числа \n ${y} > ${x} `;
+            } else if (x > y) {
+                result = `Удвоенная разность наибольшего и наименьшего числа больше \
+                произведения меньшего и среднего числа  \n ${x} > ${y}`;   //Не поняла почему при выводе этой строки появляется большой отступ после слова "больше" в строке выше все нормально
+            } else {                                                                   
+                result = "Имеются равенства";     //на занятии решили что по умолчанию все цифры разные, чтобы не писать равенство
+            };
+
+            alert(result);
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
