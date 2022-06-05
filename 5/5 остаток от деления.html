@@ -1,0 +1,32 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict";
+            let num = 452022;    // 452022 т.к нужно перебрать числа  больше 452021
+            let counter = 0;
+            let x = num**0.5 + 1;
+
+            while ( counter < 5 ) {
+                for ( let i = 2; i < x; i++ ) {
+                    if ( num % i == 0) {
+                        let M = i + num / i;   //сумма минимального и максимального натуральных делителей целого числа
+                        if (M % 7 == 3 ) {
+                            document.write( `${num} - ${M} <br>`);
+                            counter ++;
+                            break;
+                        } else {
+                            break;
+                        };
+                    };
+                };
+                num++;
+            };
+
+            
+            
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

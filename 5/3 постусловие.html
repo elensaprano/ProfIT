@@ -1,0 +1,21 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict";
+            let N = Number ( prompt( "Задайте число N:" ) );
+            let result = 1;   
+            let x = 0.1;
+
+            do{
+               result *= 1 + Math.abs(Math.sin(x)); 
+               x += 0.1; 
+            } while (result < N );
+            
+            document.write(`При N= ${N} результат вычисления равен ${result}`)
+
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

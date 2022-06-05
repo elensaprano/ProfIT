@@ -1,0 +1,42 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict";
+            let E = Number ( prompt ("Введите значение Е:") );
+            let k = 1;
+            let result = 0;
+            let maxY = 0;
+            let maxProyden = false;
+
+            if( E > 0 ) {
+                while ( true ) {                          
+                    let y  = ( 4 * k ) / ( Math.pow( k, 2) + ( 8 * Math.sqrt(k) ));
+                    k++;
+                                        
+                    if ( y > E ) {
+                        result += y;    
+                    }
+
+                    if ( y > maxY ) {
+                        maxY = y;         //находим точку когда мы переходим максимальное значение графика
+                    } else {
+                        maxProyden = true;  // перешли максимум
+                    }
+
+                    if ( y < E && maxProyden ) {   //когда мы перешли максимум и опустились ниже значения E цикл прекращаем
+                        break;
+                    }
+ 
+                }
+                document.write ( `При введенном значении Е = ${E} результат равен ${result} - ${k}` )    
+            } else {
+                alert ("Значение Е не может быть меньше или равно нулю.");
+            }
+
+            
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

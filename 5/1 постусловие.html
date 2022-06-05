@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+            <body>
+                <script>
+                    "use strict";
+
+                    let N = Number(prompt("Введите максимальное значение для вычисления результата N:"));
+                    let x = Number(prompt("Введите значение x для вычисления результата:"));
+                    let a = 2;     // возведение в корень и число в числителе
+                    let i = 1;     // число в  знаменателе
+                    let result = x;
+                    
+                    do {
+                        result += ( Math.pow(x , a) + a) / (x + i);
+                        console.log(`i ${i}`);
+                        a++;
+                        i++;
+                    } while ( result <= N );
+                    
+                    alert (`При введенных значениях N = ${N} x = ${x} результат вычисления равен ${result} `);
+            </script>
+        </body>
+    </head>
+</html>  
