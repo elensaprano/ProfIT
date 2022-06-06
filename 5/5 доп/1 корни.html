@@ -1,0 +1,22 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict";
+            let N = Number ( prompt ( "Введите число N:" ) );
+            let result = 0;
+            let x = 2;  
+
+            do {
+                result = Math.sqrt(result + x);
+                x++;
+                console.log(result);
+            } while (result < N);
+            
+            document.write (`При введенном значении N= ${N} <br> Колличество корней K= ${x-2} Результат вычисления ${result}`);
+            
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

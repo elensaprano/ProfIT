@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+            <body>
+                <script>
+                 "use strict";
+
+                 let E = Number(prompt("Введите значение E:"));
+                 let result = 0;
+                 let x = 1;
+                 let s = 0;
+                
+                 if ( E > 0 ) {
+                    while ( true ) {
+                        s = Math.pow(-1, x) / (x * (2 * x + 1));
+                        if ( Math.abs(s) < E ) {
+                            break;
+                        }
+                        result += s;
+                        x++;
+                    }
+                    
+                    document.write( `При введенном значении E= ${E} <br> результат суммы слагаемых ${Math.abs(result)} <br> колличество слaгаемых ${x} последнее слагаемое ${Math.abs(s)}` )
+                 } else {
+                     alert (`Введенное значение Е не может быть меньше или равно 0`);
+                 }
+            </script>
+        </body>
+    </head>
+</html>  

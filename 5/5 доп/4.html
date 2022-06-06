@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+            <body>
+                <script>
+                    "use strict";
+
+                    let counter = 0;   //колличество найденных чисел
+                    let sum = 0;       //сумма найденных чисел
+                    
+                    for ( let i = 3672; i <= 9117; i++) {
+
+                        if ( i % 3 == 2 && i % 5 == 4 ) {
+                            sum += i;
+                            counter++;
+                        } 
+                    }
+                    if ( sum > Math.pow(10 , 7) ) { 
+
+                        alert ("Искомая сумма не должна превышать 10^7");
+
+                    }
+
+                    document.write(`Колличество найденных чисел ${counter} <br> Cумма найденных чисел ${sum} `);                    
+            </script>
+        </body>
+    </head>
+</html>  

@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+            <body>
+                <script>
+                 "use strict";
+
+                 let a = Number(prompt("Введите значение a:"));
+                 let result = 1;
+                 let k = 2;  //числитель
+                 let n = 3;  //знаменатель
+                 let maxResult = true
+
+                 if ( a > 0 ) {
+                     while ( result < a ) {
+                        
+                        result += k / n;
+                        k++;
+                        n += 2;
+                                           
+                     }
+                     document.write(`При а= ${a} <br> n = ${n -2} <br> Сумма вычислений ${result} <br> Колличество итераций ${k-2} `);
+                 } else {
+                     alert (`Введенное значение а не может быть меньше или равно 0`);
+                 }
+                 
+                 
+            </script>
+        </body>
+    </head>
+</html>  
