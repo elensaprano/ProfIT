@@ -1,0 +1,78 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict";
+//В данной задаче на вывод формируется массив с четными числами, а не с положительными!!!
+            let choice = confirm ( "Нажмите ОК чтобы ввести последовательность чисел самостоятельно,\
+ или ОТМЕНА чтобы использовать рандомную последовательность." );
+            let array = [10];
+            let element;
+            let posArray = [];
+ 
+            if ( choice ) {
+                alert ( "Необходимо ввести 10 чисел, по одному в каждое диалоговое окно" );
+                for ( let i = 0; i < 10; i++) {
+                    element = +prompt ( `Введите ${i+1} элемент массива` );
+                    if ( !isNaN(element) ) {
+                        array[i] = element;
+                    } else { 
+                        alert ("Пожалуйста вводите только числа");
+                        break;
+                    }
+                }
+            } else {
+                for ( let i = 0; i < 10; i++ ) {
+                    let random = Math.floor((Math.random()*100));
+                    array[i] = random;
+                }
+            }
+
+            for ( let i = 0; i < array.length; i++ ) {
+                if ( array[i] % 2 == 0 ) {
+                    posArray.push(array[i]);
+                }
+            }
+
+            //начинаем сортировку бинарными включениями
+           
+            for ( let i = posArray.length-2; i >= 0; i--) {
+
+                let center;
+                let firstIndex = i + 1;
+                let lastIndex = posArray.length - 1;
+                let compare = posArray[i];
+                
+                //начинаем бинарный поиск по отсортированной части массива
+                while ( firstIndex <= lastIndex ) {
+
+                    center = Math.ceil( (firstIndex + lastIndex) / 2 );  //средний элемент отсортированной части массива
+                    
+                    if ( posArray[center] == compare ) {
+                        break;
+                    } 
+
+                    if ( posArray[center] > compare ) {
+                        firstIndex = center + 1;
+                    } else {
+                        lastIndex = center - 1;
+                    }         
+                }
+
+                if ( posArray[center] > compare ) {
+                    center += 1;
+                } 
+           
+                posArray.splice(center,0,compare); //вставляем элемент в новоем место со сдвигом остальных элементов вправо
+                posArray.splice(i,1); //удаляем элемент с его прежнего места  
+
+            }
+            
+            document.write(`Заданный массив ${array}<br>Массив содержащий четные числа из первого массива и отсортированный в порядке убывания ${posArray}`)
+
+            
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

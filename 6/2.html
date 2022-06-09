@@ -1,0 +1,51 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict";
+            let choice = confirm ( "Нажмите ОК чтобы ввести последовательность чисел самостоятельно,\
+ или ОТМЕНА чтобы использовать рандомную последовательность." );
+            let array = [];
+            let evenArray = [];
+            let element; 
+            let hasStrings = false;  
+
+            if ( choice ) {
+                alert ( "Необходимо ввести 10 натуральных чисел, по одному в каждое диалоговое окно" );
+                for ( let i = 0; i < 10; i++ ) {
+                    element = +prompt ( `Введите ${i+1} натуральное число` );
+                    if ( !isNaN(element) ) {
+                        array[i] = element;
+                    } else { 
+                        hasStrings = true;
+                        break;
+                    }
+                }
+            } else {
+                for ( let i = 0; i < 10; i++ ) {
+                    let random = Math.round((Math.random()*100));
+                    array[i] = random;
+                }
+            }
+
+            for (let i = 0; i < array.length; i++ ) {
+                if ( array[i] % 2 == 0 ) {
+                    evenArray.push(array[i]);
+                }
+            }
+
+            if (hasStrings){
+                alert ( "Пожалуйста вводите только числа" );
+            } else if ( evenArray.length == 0) {
+                document.write( `В заданном массиве ${array} нет четных чисел` );
+            } else {
+                document.write( `Заданный массив ${array} <br> Массив содержащий четные числа ${evenArray}` );
+            }
+            
+            
+            
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

@@ -1,0 +1,98 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict";
+            let choice = confirm ( "Нажмите ОК чтобы ввести последовательность чисел самостоятельно,\
+ или ОТМЕНА чтобы использовать рандомную последовательность." );
+            let array = [];
+            let element; 
+            let qt = 0;   //будет хранить колличество элементов между мин и макс
+            let result = 0; // для хранения произведения элементов
+            let brokenArray = false;
+            let messegeError;
+ 
+            if ( choice ) {
+                alert ( "Необходимо ввести 10 уникальных чисел, по одному в каждое диалоговое окно");
+                for ( let i = 0; i < 10; i++) {
+                    element = +prompt ( `Введите ${i+1} элемент массива` );
+                    if ( !isNaN(element) ) {
+                        if (array.includes(element)){
+                            brokenArray = true;
+                            messegeError = "Введенные числа  должны быть уникальными";
+                            break;
+                        }
+                        array[i] = element;
+                    } else { 
+                        brokenArray = true;
+                        messegeError =  "Пожалуйста вводите только числа";
+                        break;
+                    }
+                }
+            } else {
+                while (array.length != 10) {
+                    let random = Math.round((Math.random()*100));
+                    if (array.includes(random) == true) {
+                        continue;
+                    } else {
+                        array.push(random);
+                    }
+                    
+                }
+            }
+            
+            let iMin = 0;  //переменные для хранения индекса max и min значений 
+            let iMax = 0; 
+            let min = array[iMin]; //переменные для хранения max и min значений  
+            let max = array[iMax];            
+
+            //ищем мин макс значение
+            for ( let i = 0; i < array.length; i++ )  {
+                if ( array[i] < min) {
+                    min = array[i];
+                    iMin = i;
+                } 
+                if ( array[i] > max ) {
+                    max = array[i];
+                    iMax = i;
+                }
+            }
+        
+            //считаем колличество элементов между мин и макс
+            //и произведенеие чисел
+            if (brokenArray) {
+                alert(messegeError);
+            } else {
+                if (iMin > iMax) {
+                    qt = (iMin - iMax) - 1;
+                    if (qt > 0) {
+                        result = array[iMax+1];
+                        for(let i = iMax + 2; i < iMin; i++ ) {
+                            result *= array[i];
+                        }
+                    } else {
+                        alert("Между максимальным и минимальным элементов других элементов нет")
+                    }
+                } else {
+                    qt = (iMax - iMin) - 1;
+                    if (qt > 0) {
+                        result = array[iMin +1];
+                        for ( let i = iMin + 2;  i < iMax; i++) {
+                            result *=  array[i];
+                        }
+                    } else {
+                        alert("Между максимальным и минимальным элементов других элементов нет")
+                    }
+                }
+            
+                document.write( `Заданный массив ${array} <br> Мин значение ${min} его индекс ${iMin} <br> Макс значение ${max} его индекс ${iMax}<br>\
+Колличество элементов ${qt}<br> Произведение чисел между min и max значениями ${result}` ); 
+
+            }
+            
+                
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

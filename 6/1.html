@@ -1,0 +1,49 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict"
+            let choice = confirm ( "Нажмите ОК чтобы ввести элементы массива самостоятельно, или ОТМЕНА чтобы использовать готовый массив." );
+            let array = [];
+            let numElemArray = [];
+            let element;
+            let hasStrings = false;  
+
+
+            if ( choice ) {
+                alert ( "Необходимо ввести 10 чисел, по одному в каждое диалоговое окно");
+                for ( let i = 0; i < 10; i++) {
+                    element = +prompt ( `Введите ${i+1} элемент массива` );
+                    if ( !isNaN(element) ) {
+                        array[i] = element;
+                    } else { 
+                        hasStrings = true;
+                        break;
+                    }
+                }
+            } else {
+                //array = [3,8,10,0,6,0,9,0,7,0];
+                for ( let i = 0; i < 10; i++ ) {
+                    array[i] = Math.round(Math.random());
+                }
+            }
+
+            for ( let i = 0; i < array.length; i++ ) { 
+                if ( array[i] == 0 ) {
+                    numElemArray.push(i);  
+                }
+            }
+            if (hasStrings){
+                alert ("Пожалуйста вводите только числа");
+            } else if ( numElemArray.length == 0) {
+                document.write( `В заданном массиве ${array} нет нулей` );
+            } else {
+                document.write( `Заданный массив ${array} <br> Массив содержащий индексы нулей ${numElemArray}` );
+            }
+            
+           
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
