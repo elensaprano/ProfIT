@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+            <body>
+                <script>
+                    "use strict";
+
+                    let s = Math.floor(Math.random()*(100000 - 1 + 1)) + 1;  //свободный обьем на диске
+                    let n = Math.floor(Math.random()*(10000 - 1 + 1)) + 1;   //кол-во пользователей
+                    // let s = 100;
+                    // let n = 50
+                    let v = [];  //обьем файлов пользователей
+                    let vArray = []; //макс возможное кол-во фвйлов для сохранения
+
+                    for (let i = 0; i < n; i++) {
+                        v[i] = Math.floor(Math.random()*(100 - 1 + 1)) + 1;
+                    }
+
+                    //сортируем обьем файлов по возрастанию 
+                    
+                    for ( let x = 0; x < v.length; x++){
+                        for (let i = 0; i < v.length-1; i++) {
+                            if (v[i] > v[i+1]) {
+                                let y = v[i];
+                                v[i] = v[i+1];
+                                v[i+1] = y;
+                            }  
+                        }
+                    }
+                    //document.write(v + `<br>`);
+
+                    //считаем макс кол-во пользователей файлы кт можно записать на диск
+                    let summ = 0;
+                    let i = 0;
+                    while (i < v.length) {
+                        if (summ + v [i] <= s) {
+                            summ += v[i];
+                            vArray[i] = v[i];
+                            i++;
+                        } else {
+                            break;
+                        }
+                    }
+                    //document.write(vArray + `<br>`);
+                    document.write(`Доступный размер памяти ${s} <br>\
+                    Сумма всех файлов которые мы можем сохранить ${summ} <br>\
+                    Из ${n} пользователей, максимальное  число пользователей чьи файлы можно сохранить в архиве ${vArray.length} <br>\
+                    Максимальный размер файла ${vArray[vArray.length-1]}`);
+
+                                      
+            </script>
+        </body>
+    </head>
+</html>  

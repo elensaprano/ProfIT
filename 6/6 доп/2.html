@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+            <body>
+                <script>
+                    "use strict";
+                    let N = +prompt('Введите жалаемую размерность массива:');
+                    let array = [];
+                    let arr = [];   //Массив содержащий колличество повторяющихся элементов 
+                    let x = 0;   //хранит индекс часто встречаемого наименьшего числа
+
+                    let choice = confirm ( "Нажмите ОК чтобы ввести последовательность чисел самостоятельно,\
+ или ОТМЕНА чтобы использовать рандомную последовательность." );
+                    
+                    for (let i = 0; i < N; i++) {   //строка
+                        let value;
+                        if (choice) {
+                            value = +prompt(`Введите значение элемента ${i+1} массива (при вводе вещественного числа оно округлится до близжайшего целого)`);
+                        } else {
+                            value = Math.random()*10;
+                        }
+                        array[i] = Math.round(value);
+                    }
+                    
+                    for (let i = 0; i < array.length; i++){
+                        let count = 1;
+                        for (let j = i+1; j < array.length; j++){
+                            if (array[i] == array[j]){
+                                count++;
+                            }
+                            arr[i] = count;
+                        }
+                        
+                        if (arr[i] == arr[x]){
+                            x = array[x] > array[i] ? i : x;
+                        } else {
+                            x = count > arr[x] ?  i : x;
+                        }
+                        
+                    }
+                    document.write(`Заданный массив ` + array + `<br>`);
+                    document.write(`Массив содержащий колличество повторяющихся элементов `+ arr + `<br>`);
+                    document.write(`Наименьшее повторяющееся число `+ array[x] + `<br>`);
+                    
+
+                                      
+            </script>
+        </body>
+    </head>
+</html>  

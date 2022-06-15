@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+            <body>
+                <script>
+                    "use strict";
+                    let biatlonist = [
+                            ["Василий",4,2],
+                            ["Ирина",4,4],
+                            ["Елена",4,5],
+                            ["Виктор",5,5],
+                            ["Светлана",2,3],
+                            ["Михаил",3,5],
+                            ["Кристина",5,4]
+                    ];
+                    let sortList = []; //список всех биатлонистов промахнувшихся не более 2 раз во 2 рубеже в порядке убывания по кол-ву вы стрелов в 1 рубеже
+                    
+                    document.write("Общий список биатлонистов в порядке убывания общего результата <br>");
+                    for ( let x = 0; x < biatlonist.length; x++){
+                        for (let i = 0; i < biatlonist.length-1; i++) {
+                            if (biatlonist[i][1] + biatlonist[i][2] < biatlonist[i+1][1] + biatlonist[i+1][2]) {
+                                let y = biatlonist[i];
+                                biatlonist[i] = biatlonist[i+1];
+                                biatlonist[i+1] = y;
+                            }
+                            
+                        }
+                    }
+                    document.write(`<br>` + biatlonist +`<br>`);   
+
+                    for (let x = 0; x < biatlonist.length; x++) {
+                        for (let i = 0; i < biatlonist.length-1; i++) {
+                            if (biatlonist[i][1] <= biatlonist[i+1][1]) { 
+                                let y = biatlonist[i];
+                                biatlonist[i] = biatlonist[i+1];
+                                biatlonist[i+1] = y; 
+                            }
+                        }
+                    }
+
+                    for (let i = 0; i < biatlonist.length; i++) {
+                        if (biatlonist[i][2] >= 3){
+                            sortList[sortList.length] = biatlonist[i]
+                        }
+                    }
+                    document.write("<br>Список биатлонистов совершивших не более двух промахов на 2 рубеже <br>\
+в порядке убывания колличества попаданий на 1 рубеже <br>");
+                    document.write(`<br>` + sortList + `<br>`);
+                    
+
+
+                    
+                                      
+            </script>
+        </body>
+    </head>
+</html>  
