@@ -1,0 +1,147 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict";
+            /* Дана числовая матрица С(М, 2М).
+            Определить в какой из половин (правой / левой) сумма всех элементов больше, чем в другой.
+            Составить матрицу D(M, M) из произведений соответствующих элементов половин матрицы С.
+            Расположить в матрице D элементы стоящие на побочной диагонали в порядке возрастания, то есть получить матрицу Е.
+            Напечатать матрицы D, Е.*/
+
+             let input = Number(prompt("Ввести желаемую размерность массива(четное число)"));
+
+            // //РАЗОБРАТЬСЯ КАК ПРЕКРАТИТЬ ВЫПОЛНЕНИЕ КОДА ЕСЛИ НАЖАЛИ ОТМЕНА!!!!!!!
+            if (input <= 0 || isNaN(input)) {
+
+                let a =  confirm("Введены некорректные данные, хотите перезапустить программу?");
+
+                if (a) {
+
+                    location.reload();
+                } else {
+
+                    close();
+                }
+            }
+            
+            function Massiv ( m ) {
+
+                let array = [];
+
+                for (let i = 0; i < m; i++) {
+
+                    array [i] = [];
+
+                    for (let y = 0; y < (2*m); y++) {
+                        
+                        array[i][y] = Math.floor( Math.random() * 10 + 1 );
+                        document.write(array[i][y] + " | ");
+                    }
+                    document.write("<br>");
+                }
+                return  array;
+            }
+            document.write(`Заданная матрица С(М,2М): <br>`);
+            let cArray = Massiv(input);
+            // let cArray = [
+            //                 [1, 3, 9, 11, 16, 19],
+            //                 [2, 4, 6, 15, 5, 4],
+            //                 [5, 7, 8, 16, 2, 0],
+            //             ];
+            // document.write(cArray);
+
+            //определяю в какой из половин матриц (делю по вертикали) сумма эл больше
+            let leftSumm = 0;
+            let rightSumm = 0;
+            let message;
+
+            for (let i = 0; i < cArray.length; i++){   //строка
+
+                for (let j = 0; j < cArray.length; j++){   //столбик
+
+                    leftSumm += cArray[i][j];
+                }
+            }
+
+            for (let i = 0; i < cArray.length; i++){   //строка
+
+                for (let j = cArray.length; j < cArray.length*2; j++){   //столбик
+
+                    rightSumm += cArray[i][j];
+                }
+            }
+
+            if (leftSumm > rightSumm){
+                message = `Сумма левой половины массива равная ${leftSumm} больше суммы правой половины массива равной ${rightSumm}<br>`;
+            } else {
+                message = `Сумма правой половины массива равная ${rightSumm} больше суммы левой половины массива равной ${leftSumm}<br>`;
+            }
+
+            document.write(`<br>` + message);
+
+            //создаем матрицу D(M, M) из произведений соответствующих элементов половин матрицы С
+            document.write(` Матрица D(M, M) из произведений соответствующих элементов половин матрицы С : <br>`);
+
+            let dArray = [];
+
+            for (let i = 0; i < input; i++) {
+
+                dArray[i] = [];
+
+                for (let j = 0; j < input; j++) {
+
+                    dArray[i][j] = cArray[i][j] * cArray[i][j+input];
+                    document.write(dArray[i][j] + " | ");
+
+                }
+                document.write(`<br>`);
+            }
+
+            //Расположить в матрице D элементы стоящие на побочной диагонали в порядке возрастания, то есть получить матрицу Е.
+            document.write('Матрица Е в которой все элементы матрицы D стоящие на побочной диагонали в порядке возрастания: <br>');
+
+            let eArray = [];
+            let diagonal = [];
+
+            for  (let i = 0; i <= input - 1; i++) {
+
+                diagonal[i] = dArray[i][(input-1)-i];  
+            }
+            
+            //сортируем массив состоящий из эл побочной диагонали
+            for ( let x = 0; x < diagonal.length; x++) {
+
+                for (let i = 0; i < diagonal.length-1-x; i++) {
+
+                    if (diagonal[i] > diagonal[i+1]) {
+
+                        let y = diagonal[i];
+                        diagonal[i] = diagonal[i+1];
+                        diagonal[i+1] = y;
+                    }  
+                }
+            }
+             
+            for (let i = 0; i < input; i++) {
+
+                eArray[i] = [];
+
+                for (let j = 0; j < input; j++) {
+
+                    eArray[i][j] = dArray[i][j]
+
+                    if (eArray[i][(input-1)-i]) {
+
+                        eArray[i][(input-1)-i] = diagonal[i];
+                    }
+                    document.write(eArray[i][j] + " | ")
+                }
+                document.write(`<br>`);
+            }
+
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
