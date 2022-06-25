@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+            <body>
+                <script>
+                    "use strict"
+                    function  checkEqual(N,S) {
+                        let result;
+                        if(S - N == 0 &&  N > 0) {
+                            result = true;
+                        } else if (N >= 10){
+                            let x = N % 10;
+                            result = checkEqual (Math.floor(N/10), S - x);
+                        } else {
+                            result = false;
+                        }
+                        return result;
+                    }
+
+                    let N = +prompt("Введите число для сравнения:");
+                    let S = +prompt("Введите число с которым будем сравнивать:");
+
+                    if (N < 0 || S < 0 || !Number.isInteger(N) || !Number.isInteger(S)) {
+                        let error = confirm("Введены отрицательные или вещественные числа! Если хотите ввести новые значения нажмите ОК,\
+ или ОТМЕНА  чтобы программа прекратила работу");
+                        if (error) location.reload();
+                    } else if (checkEqual(N,S)){
+                        alert (`Сумма всех введенных чисел ${N} равна второму числу ${S}`);
+                    } else {
+                        alert (`Сумма всех введенных чисел ${N} не равна второму числу ${S}`);
+                    }
+                    
+                    
+                                      
+            </script>
+        </body>
+    </head>
+</html>  
