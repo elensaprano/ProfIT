@@ -1,0 +1,47 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict"
+
+            function calcF(x) {
+                return 3 * x - Math.sin(x) - 7;
+            }  
+
+            function calcResult (a,b) {
+                
+                let center;
+
+                while(a.toFixed(5) != b.toFixed(5)) {
+
+                    center = (a + b)/2;  //средина диапазона
+
+                    if (calcF(a) * calcF(center) <= 0) {
+                        b = center;
+                    } else if (calcF(b) * calcF(center) <= 0) {
+                        a = center;
+                    } else {
+                        return "В данном диапазоне корня нет";
+                        break;
+                    }     
+                }
+                return "Корень функции в точке :" + center;                
+            }
+
+            let a = +prompt("Введите число начала диапазона:");
+            let b = +prompt("Введите число окончания диапазона:");
+            
+
+            if (isNaN(a) || isNaN(b)) {
+                let error = confirm("Введены некорректные данные, если хотите ввести значения еще раз нажмите ОК,\
+если хотите прекратить работу программы нажмите ОТМЕНА")
+                if (error) {
+                    location.reload();
+                }
+            }
+            document.write(calcResult(a,b));
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

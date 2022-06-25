@@ -1,0 +1,137 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict";
+            /*Даны две числовые матрицы X1(М, N) и X2(N, L).
+            Получить третью результирующую матрицу Y суммированием элементов каждой строки матрицы Х2
+            с произведением всех элементов соответствующего столбца матрицы X1.
+            Напечатать матрицу Y, после чего вывести на печать все ее элементы в порядке убывания."*/
+
+            let M = +prompt("Введите колличество строк в первом массиве , (больше 0) :");
+            let N = +prompt("Введите колличество столбцов в первом массиве,  что одновременно и кол-во строк во втором массиве (больше 0):");
+            let L = +prompt("Введите колличество столбцов во втором массиве (больше 0):");
+
+            if (M <= 0 || isNaN(M) || N <= 0 || isNaN(N) || L <= 0 || isNaN(L)) {
+
+                let c = confirm("Введены некорректные данные! Если хотите перезапустить программу и ввести новые значения нажмите ОК,\
+ чтобы завершить работу программы нажмите ОТМЕНА");
+                if (c) {
+                    location.reload();
+                }
+            }  else {
+
+                //Вывод матриц с помощью процедуры и разметки HTML
+                function showMatrix (array, a, b) {
+
+                    let resultArray = "<table>";  //начало HTML таблицы
+
+                    for (let i = 0; i < a; i++) {
+
+                        resultArray += "<tr>";    //создаем строки HTML таблицы
+
+                        for (let j = 0; j < b; j++) {
+
+                            resultArray += "<td align='center'>";    //создаем столбцы HTML таблицы с выравниванием по центру
+                            resultArray +=  array[i][j] + " | ";    // задаем значения ячейкам HTML таблицы
+                        }
+                        resultArray += "</tr>";   //закрываем строку HTML таблицы  
+                    } 
+                    resultArray += "</table>";  //конец HTML таблицы
+                    document.write(resultArray);
+                }
+
+                let x1Array = [];
+                let x2Array = [];
+                let yArray = [];
+                let arrayColumnProduct = [];
+                let sortArray = []; 
+
+                //задаем значения Х1 матрицы
+                document.write("<br> Матрица Х1 <br>");    
+
+                for (let i = 0; i < M; i++) {     //идем по строкам
+        
+                    x1Array[i] = [];
+
+                    for (let x = 0; x < N; x++) {      //идем по столбцам
+        
+                        x1Array[i][x] = Math.floor(Math.random()*10 + 1);
+                    }
+                } 
+                showMatrix(x1Array, M, N);
+
+                //задаем значения Х2 матрицы
+                document.write("<br> Матрица Х2 <br>");
+
+                for (let i = 0; i < N; i++) {     //идем по строкам
+        
+                    x2Array[i] = [];
+
+                    for (let x = 0; x < L; x++) {   //идем по столбцам
+
+                        x2Array[i][x] = Math.floor(Math.random()*10 + 1);
+                    }
+                }
+                showMatrix(x2Array, N, L);
+                
+
+                document.write("<br> Произведение каждого столбика матрицы Х1  <br>");
+
+                for (let x = 0; x < N; x++) {   //столбик
+
+                    let multiplication = 1;
+
+                    for (let j = 0; j < M; j++) {       //строка
+
+                        multiplication *= x1Array[j][x];
+                    }
+
+                    arrayColumnProduct[x] = multiplication;
+                    document.write(arrayColumnProduct[x] + "  |  ");
+                }
+                document.write("<br>");
+
+                
+                //создаем матрицу Y (результирующая) и выносим все элементы матрицы в одномерный массив
+                document.write("<br> Матрица Y <br>");
+
+                let j = 0;  //cчетчик индекса одномерного массива sortArray
+
+                for(let i = 0; i < N; i++) {   //строка
+
+                    yArray[i] = [];
+
+                    for(let x = 0; x < L; x++) {   //столбик
+
+                        yArray[i][x] = x2Array[i][x] + arrayColumnProduct[i];
+                        sortArray[j] = yArray[i][x];
+                        j++;
+                    }  
+                }
+                showMatrix(yArray, N, L);
+
+                document.write("<br>Элементы матрицы Y с использованием пузырьковой сортировки <br>");
+
+                // начинаем сортировку одномерного массива пузырьковой сортировкой
+
+                for ( let x = 0; x < sortArray.length; x++) {
+
+                    for (let i = 0; i < sortArray.length-1-x; i++) {
+
+                        if (sortArray[i] < sortArray[i+1]) {
+
+                            let y = sortArray[i];
+                            sortArray[i] = sortArray[i+1];
+                            sortArray[i+1] = y;
+                        }  
+                    }
+                }
+                document.write(sortArray);
+            }
+
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
