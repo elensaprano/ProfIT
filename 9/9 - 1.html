@@ -4,6 +4,7 @@
         <script> 
             "use strict"
             let N = +prompt(`Сколько городов на планете Neptune? (но их точно больше 0 и не больше 100!)`);
+
             if (N <= 0) {
                 let error = confirm(`Городов точно больше! Попробуете еще раз?`);
                 if (error) location.reload();
@@ -11,33 +12,38 @@
             if (N > 100) {
                 let error = confirm(`Городов точно меньше! Попробуете еще раз?`);
                 if (error) location.reload();
+            } else {
+                Graph(N);
             }
 
-            let matrixNeptune = [];
-            let n = 0;   //счетчик колличества дорог
+            function Graph ( N ) {
 
-            //создаем треугольную матрицу смежности 
-            document.write(`Матрица смежности дорог на планете Neptune`);
-            for (let i = 0; i < N; i++) {
+                let matrixNeptune = [];
+                let n = 0;   //счетчик колличества дорог
 
-                matrixNeptune[i] = [];
+                //создаем треугольную матрицу смежности 
+                document.write(`Матрица смежности дорог на планете Neptune <br>`);
+                for (let i = 0; i < N; i++) {
 
-                for (let j = 0; j < N; j++) {
+                    matrixNeptune[i] = [];
 
-                    if (j - i > 0) {
+                    for (let j = 0; j < N; j++) {
 
-                        matrixNeptune[i][j] = Math.round(Math.random());
-                        if (matrixNeptune[i][j] == 1) n++;
+                        if (j - i > 0) {
 
-                    } else {
-                        matrixNeptune[i][j] = 0;
+                            matrixNeptune[i][j] = Math.round(Math.random());
+                            if (matrixNeptune[i][j] == 1) n++;
+
+                        } else {
+                            matrixNeptune[i][j] = 0;
+                        }
+                        document.write(matrixNeptune[i][j]  + ` | `);
                     }
-                    document.write(matrixNeptune[i][j]  + ` | `);
+                    document.write(`<br>`);
                 }
-                document.write(`<br>`);
+                
+                document.write(`Колличество дорог на планете Neptune ${n}`);
             }
-            
-            document.write(`Колличество дорог на планете Neptune ${n}`);
         </script>
     </head> 
     <body> 
