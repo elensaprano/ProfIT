@@ -4,15 +4,17 @@
         <script> 
             "use strict"
             let N = +prompt(`Сколько городов на планете Neptune? (но их точно больше 0 и не больше 100!)`);
+            let error = true;
 
-            if (N <= 0) {
-                let error = confirm(`Городов точно больше! Попробуете еще раз?`);
+            if (N < 0) {
+                error = confirm(`Городов точно больше! Попробуете еще раз?`);
                 if (error) location.reload();
             }
             if (N > 100) {
-                let error = confirm(`Городов точно меньше! Попробуете еще раз?`);
+                error = confirm(`Городов точно меньше! Попробуете еще раз?`);
                 if (error) location.reload();
-            } else {
+            } 
+            if (error && N <= 100 || error  && N >= 0) {
                 Graph(N);
             }
 
