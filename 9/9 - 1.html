@@ -9,18 +9,19 @@
                 let n = 0;   //счетчик колличества дорог
 
                 //создаем треугольную матрицу смежности 
-                document.write(`Матрица смежности дорог на планете Neptune <br>`);
+                document.write(`Матрица смежности городов и дорог на планете Neptune <br>`);
                 for (let i = 0; i < N; i++) {
 
                     matrixNeptune[i] = [];
 
                     for (let j = 0; j < N; j++) {
 
-                        if (j - i > 0) {
-
+                        if (i == j) {
+                            matrixNeptune[i][j] = 1;    //дорога внутри существующего города не соединенная с другими городами (петля)
+                            n++;
+                        } else if (j - i > 0) {
                             matrixNeptune[i][j] = Math.round(Math.random());
                             if (matrixNeptune[i][j] == 1) n++;
-
                         } else {
                             matrixNeptune[i][j] = 0;
                         }
