@@ -3,21 +3,6 @@
         <meta charset="utf-8">
         <script> 
             "use strict"
-            let N = +prompt(`Сколько городов на планете Neptune? (но их точно больше 0 и не больше 100!)`);
-            let error = true;
-
-            if (N < 0) {
-                error = confirm(`Городов точно больше! Попробуете еще раз?`);
-                if (error) location.reload();
-            }
-            if (N > 100) {
-                error = confirm(`Городов точно меньше! Попробуете еще раз?`);
-                if (error) location.reload();
-            } 
-            if (error && N <= 100 || error  && N >= 0) {
-                Graph(N);
-            }
-
             function Graph ( N ) {
 
                 let matrixNeptune = [];
@@ -43,9 +28,27 @@
                     }
                     document.write(`<br>`);
                 }
-                
+
                 document.write(`Колличество дорог на планете Neptune ${n}`);
-            }
+                }
+
+                function error (message) {
+                    if (confirm(message)) location.reload();
+                }
+
+                let N = +prompt(`Сколько городов на планете Neptune? (но их точно больше 0 и не больше 100!)`);
+
+                if (N > 0 && N <=  100) {
+                    Graph(N);
+                } else if (isNaN(N)) {
+                    error(`Необходимо вводить числа! Попробуете еще раз?`)
+                } else if (N < 0) {
+                    error(`Городов точно больше! Попробуете еще раз?`);  
+                } else if (N > 100) {
+                    error(`Городов точно меньше! Попробуете еще раз?`);
+                } else {
+                    alert (`Городов, и дорог между ними на планете Neptune нет`);
+                }
         </script>
     </head> 
     <body> 

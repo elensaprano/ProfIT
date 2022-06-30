@@ -1,0 +1,116 @@
+<html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict"
+            /**
+             *
+             * @param graph массив (список смежности для графа)
+             * @param begin начальная вершина для поиска пути
+             * @param end конечная вершина для поиска пути
+             */
+            
+            //агоритм поиска в ширину           
+            function bfs (graph, begin, end) {
+                
+                let queue = [];      //очередь
+                let path = {};       //обьект для хранения пройденныйх вершин
+                queue.push(begin);     //добавляем в очередь начальные вершины
+                graph[begin].visited = true;   //помечаем вершину посещенной
+
+                while(queue.length > 0) {
+
+                    let checkNode = queue.shift();  //удаляем вершину  из  очереди
+                    if (checkNode == end) {         //если она равна конечной вершине, заканчиваем
+                        break;
+                    }
+                    for (let neighbor of graph[checkNode].connect) {
+                        if (!graph[neighbor].visited) {  
+                            path[neighbor] = checkNode;     //записываем обратный путь
+                            queue.push(neighbor);           //добавляем новые вершины в очередь
+                            graph[neighbor].visited = true;  //помечаем соседей посещенными
+                        }
+                    }
+                }
+
+                let go = end;
+                let count = 0;
+                let message;
+                let vertexList = [];   //список всех вершин на пути
+ 
+                document.write(`Все посещеные вершины(начальная точка ${begin}, конечная точка ${end}) <br> `);
+
+                while(path[go]) {
+
+                    vertexList[count] = go;
+                    if (go == begin) break;
+                    go = path[go];
+                    count++;
+                }
+                vertexList.push(begin);
+
+                for (let i = 0; i < vertexList.length; i++) {
+                    document.write(vertexList[vertexList.length-i-1] + ` | `);
+                }
+                 
+                if (count > 0) {
+                    message =`Длинна кратчайшего пути (кол-во пройденных ребер) <br>` + count;
+                } else {
+                    message = `Такого пути не существует <br>` + -1;
+                }
+                return message;
+            }
+
+            let graphList = {
+                1 : { 
+                    connect : [2,6] 
+                },
+                2 : {
+                    connect : [1,9]
+                },
+                3 : {
+                    connect : [4,9]
+                },
+                4 : {
+                    connect : [5,3,6,7]
+                },
+                5 : {
+                    connect : [4,9,10]
+                },
+                6 : {
+                    connect : [1,4,7]
+                },
+                7 : {
+                    connect : [4,6,8]
+                },
+                8 : {
+                    connect : [7]
+                },
+                9 : {
+                    connect : [2,3,5,10]
+                },
+                10 : {
+                    connect : [9,5]
+                },
+                11 : {
+                    connect : []
+                }
+            }
+            let inputBegin = +prompt(`Введите начальную точку (от 1 до 11)`);
+            let inputEnd = +prompt(`Введите конечную точку (от 1 до 11)`);
+
+            if (isNaN(inputBegin) || isNaN(inputEnd) || inputBegin > 11 || inputBegin < 1 || inputEnd > 11 || inputEnd < 1){
+
+                let error = confirm(`Введены некорректные данные! Необходимо вводить цифры со значениями больше 0 и не больше 11!\
+ Если хотите перезапустить программу нажмите ОК, иначе ОТМЕНА`);
+                if (error) location.reload();
+            }
+            if (!isNaN(inputBegin) && !isNaN(inputEnd) && inputBegin <= 11 && inputBegin >= 1 && inputEnd <= 11 && inputEnd >= 1) {
+                
+                document.write(`<br>` + bfs(graphList,inputBegin,inputEnd) );
+            }
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>  
