@@ -1,0 +1,117 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+            <body>
+                <script>
+                    "use strict"
+                    //по поводу поворотов, по сути я считаю ребра между вершинами графа находящимися на перекрестках лабиринта, но не перевожу сам лабиринт в граф.
+                
+                    //навправления движения
+                    const left = 0;  
+                    const right = 1;
+                    const up = 2;
+                    const down = 3;
+                    const directions = [left, right, up, down];
+                    const directinosDct = {
+                        0: [0, -1],
+                        1: [0, 1],
+                        2: [-1, 0],
+                        3: [1, 0]
+                    }
+                    let dir = ["налево", "направо", "вверх", "вниз"]  //список направления для понятного вывода в консоль
+
+                    let steps = [];  //шаги
+                    for (let d of directions) {  //выбираем направление движения
+                        console.log("-------------------------------");
+                        let labirint = [
+                            [0,0,0,0,1],
+                            [0,1,1,0,2],
+                            [0,2,1,0,0],
+                            [0,0,1,0,0]
+                        ]; 
+
+                        let turns = move(d, labirint);
+                        steps.push(turns);  
+                        document.write("------------------------------</br>");
+                        document.write(`Если начнем движенние ${dir[d]} : ${turns} поворота </br>`);
+
+                        for (let x=0; x<labirint.length; x++) {
+                            document.write(labirint[x] + "</br>");
+                        }  
+                    }
+                    
+
+                    //начинаем движение
+                    function move (direction, lab) {
+                        let maxStep = lab.length *  lab[0].length //максимальное кол-во шагов равно кол-ву ячеек в лабиринте
+                        let step = 0;
+                        let turns = 1; //повороты, 1 т.к от начальной точки мы сразу поворачиваем
+                        let i=0;  //счетчики ячеек
+                        let j=0;
+
+                        while (step < maxStep) {
+                            console.log("i:" + i + " j:" + j + " направление " + dir[direction]);
+                            step++;
+                            let vetrMove = directinosDct[direction][0]+i;  //вертикальный шаг
+                            let horMove = directinosDct[direction][1]+j;   //горизонтальный шаг
+
+                            if (isFinish(vetrMove, horMove, lab)) {  //если мы пришли к выходу
+                                console.log("Финиш");
+                                return turns; //вернуть кол-во поворотов в пути
+                            } else if (isCollision (vetrMove, horMove, lab)) {  //если след ячейка на пути преграда, ищем новое направление
+                                direction = getNewDirection(direction, i, j, lab);  
+                                turns++;   //увеличиваем кол-во поворотов т.к направление изменилось
+                                console.log("поворот " + turns);
+                            } else {
+                                i = directinosDct[direction][0]+i;
+                                j = directinosDct[direction][1]+j;
+                                lab[i][j] = "8";
+                            }
+                        }
+                    }
+
+                    //поверяем пришли ли мы к выходу
+                    function isFinish (i, j, lab) {  
+                        if (lab[i] == undefined) {
+                            return false;
+                        }
+                        return lab[i][j] == 2;
+                    }
+
+                    //проверяем является ли след ячейка 0 или пути дальше нет
+                    function isCollision (i, j, lab) {
+                        if (lab[i] == undefined) {
+                            return  true;
+                        }
+                        return  lab[i][j] != 0;
+                    }
+
+                    //ищем новое направление движения
+                    function getNewDirection (oldDirection, i, j, lab) {
+                        let newDirection;
+                        for (let d of directions) {
+                            if (d != oldDirection) {  //рассматриваем направления не учитывая того откуда пришли
+                                let vetrMove = directinosDct[d][0]+i;
+                                let horMove = directinosDct[d][1]+j;
+                                if (lab[vetrMove] == undefined) { //если выходим за массив пропускаем это  направление
+                                    continue;
+                                }
+                                if (isFinish(vetrMove, horMove, lab) || !isCollision(vetrMove, horMove, lab)) {
+                                    newDirection = d;
+                                    break;
+                                }
+                            }  
+                        }
+                        //если нового пути нет
+                        if (newDirection == undefined) {
+                            console.log("Пути нет!");
+                        }
+                        return newDirection;
+                    }
+
+                    
+                                      
+            </script>
+        </body>
+    </head>
+</html>  
