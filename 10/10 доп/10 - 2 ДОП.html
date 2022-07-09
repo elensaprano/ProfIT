@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <body>
+            <script>
+                "use strict"
+                
+                class Validator {
+                    constructor (email, domain, date, phone)  {
+                        this.email = email;
+                        this.domain = domain;
+                        this.date = date;
+                        this.phone = phone;
+                    }
+
+                    checkIsEmail () {
+                        let a = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+                        return (a.test(this.email));
+                    }
+                    checkIsDomain () {
+                        //вариант с url адресом
+                        //let b = /https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i;
+                        //второй работает если строка начинается с www и без нее
+                        let b = /^(?!\-)(?:[a-zA-Z\d\-]{0,62}[a-zA-Z\d]\.){1,126}(?!\d+)[a-zA-Z\d]{1,63}$/;
+                        return (b.test(this.domain));
+                    }
+                    checkIsDate () { 
+                        let c = /^([1-9]|[0][1-9]|[1-2][0-9]|[3][0-1])[\/ . -]{1}([1-9]|[0][1-9]|[1][0-2])[\/ . -]{1}\d{4}$/;
+                        return (c.test(this.date));
+                    }
+                    checkIsPhone () {
+                        let d = /^\+?(\d{1})?[- .]?\d\d\d?[- .]?\d\d\d[- .]?\d\d\d\d$/;
+                        return (d.test(this.phone));
+                    }
+                }
+
+                let email, domain, date, phone;
+                let x = confirm ("Нажмите ОК если хотите ввести данные для проверки самостоятельно, или ОТМЕНА чтобы вывести готовые данные?");
+                if (x) {
+                    email = prompt ('Введите адрес электронной почты','name@mail.ru');
+                    domain = prompt ('Введите адрес сайта для проверки домена','wisdomweb.ru');
+                    date = prompt ('Введите дату','dd/mm/yyyy');
+                    phone = prompt ('Введите мобильный номер телефона','+9 999-999-9999');
+                }
+                else {
+                    email = 'iraivanova2022@gmail.com';
+                    domain = 'www.javascript.ru';
+                    date = '29-02-2000';
+                    phone = '+7 999-999-9999';
+                }
+                let check = new Validator(email, domain, date, phone);
+                document.write(`Email ${email} - ${check.checkIsEmail()}<br>`);
+                document.write(`Domen ${domain} - ${check.checkIsDomain()}<br>`);
+                document.write(`Date ${date} - ${check.checkIsDate()}<br>`);
+                document.write(`Phone ${phone} - ${check.checkIsPhone()}<br>`);
+                    
+                                      
+             </script>
+        </body>
+    </head>
+</html>  

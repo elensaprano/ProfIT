@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+            <body>
+                <script>
+                    "use strict"
+                    class User {
+                        
+                        constructor (name, surname){
+                            this.name = name;
+                            this.surname = surname;
+                        }
+
+                        getFullName() {
+                            return document.write (this.surname + ` ` + this.name + `<br>`);
+                        }
+                    }
+
+                    class Student extends User {
+                        constructor (name, surname, year) {
+                            super(name, surname);
+                            this.year = year;
+                        }
+
+                        getCourse(year, date) {
+                            //попробовала реализовать метод с учетом месяца, по формуле из условия задачи курс не всегда будет правильным
+
+                            let course = date.getFullYear() - year;
+                            let message;
+
+                            if (date.getMonth() >= 6 && course < 5 ){
+                                //с июля переходят на след курс
+                                message = `Студент поступил в ${year} году <br> Учится на ${course +1} курсе <br> `;
+                            } 
+                            if (date.getMonth() < 6 && course <= 5 && course != 0){
+                                //до июля еще на предыдущем курсе
+                                message = `Студент поступил в ${year} году <br> Учится на ${course} курсе <br> `; 
+                            } 
+                            if (date.getMonth() <= 6 && course == 0){
+                                //сдаст экзамен на поступление в августе
+                                message = `Попробует поступить в августе ${year} года <br>`;
+                            }
+                            if (date.getMonth() >= 6 && course == 5) {
+                                //в июле получают диплом
+                                message = `Студент поступил в ${year} году <br> Диплом получен в ${year + 5} году! <br>`;
+                            } 
+                            if (course > 5) {
+                                //получил диплом ранее
+                                message = `Студент поступил в ${year} году <br> Диплом получен в ${year + 5} году! <br>`;
+                            }
+                            if (course < 0) {
+                                //получил диплом ранее
+                                message = `Пока не учится <br>`;
+                            }
+                            
+                            return document.write(message);
+                        }
+                    }
+
+                    let students = [
+                        new Student("Виктория", "Михайлова", 2022),
+                        new Student("Ирина", "Иванова", 2021),
+                        new Student("Виктор", "Николаев", 2019),
+                        new Student("Василий", "Петров", 2018),
+                        new Student("Дмитрий", "Сидоров", 2017),
+                        new Student("Мария", "Петрова", 2015),
+                    ];
+
+                    let date = new Date('5,12,2015'); //текущая дата
+                    document.write (`Текущая дата: ${date} <br>`);
+                    document.write(`-------------------<br>`);
+
+                    for (let user of students) {
+                        user.getFullName();
+                        user.getCourse(user.year,date);
+                        document.write(`-------------------<br>`);
+
+                    }
+
+                    
+                                      
+            </script>
+        </body>
+    </head>
+</html>  
