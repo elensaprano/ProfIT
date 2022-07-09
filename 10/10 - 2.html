@@ -1,0 +1,52 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict"
+
+            class bankAccount {
+                constructor (item, contributor, sumOfMoney, yearlyInterest ) {
+                    this.item = item;
+                    this.contributor = contributor;
+                    this.sumOfMoney = sumOfMoney;
+                    this.yearlyInterest = yearlyInterest;
+                }
+
+                calcDepositFunds(sum) {
+                    this.sumOfMoney += sum
+                    return this.sumOfMoney;
+                }
+
+                //Расчет простых процентов на 30 дней 
+                calcToCalculateInterest () {
+                    let finalIncome = (this.sumOfMoney * this.yearlyInterest * (30 / 365)) / 100; 
+                    return  finalIncome;
+                }
+            } 
+            
+            const massivData = [
+                new bankAccount(`1534-5535-2619-5423`, "Петров И.Ф", 45000, 4.7),
+                new bankAccount(`2545-5345-6783-8921`, "Иванов А.В", 350000, 5.2),
+            ];
+            
+            for (const user of massivData) {
+                let refill = +prompt(user.contributor + `, какую сумму желаете положить на счет?`);
+                document.write(`Номер счета: ${user.item}<br> Владелец: ${user.contributor}<br> Начальный баланс ${user.sumOfMoney}руб.<br>`);
+                document.write (`Счет пополнен на ${refill}.<br> Остаток на счете составил ${user.calcDepositFunds(refill)}руб. <br>`);
+                document.write(`Начислено ${user.yearlyInterest}%, ${user.calcToCalculateInterest().toFixed(2)}руб.<br>`);
+                document.write(`Oстаток на счете составил ${(user.calcToCalculateInterest() + user.sumOfMoney).toFixed(2)}руб.<br>`);
+                document.write(`------------------------------------ <br>`);
+            }
+            
+
+            
+
+
+      
+            
+
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

@@ -1,0 +1,55 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict"
+
+            class Worker {
+                constructor (surname, name, rate, days) {
+                    this.name = name;
+                    this.surname = surname;
+                    this.rate = rate;
+                    this.days  = days;
+                }
+
+                get getSalary () {
+                    return this.rate * this.days;
+                }
+            }
+
+            let surname, name, rate, days;
+            let input = confirm ("Если хотите ввести данные сотрудника вручную нажмите ОК, или ОТМЕНА для вывода готовых данных");
+            
+            if (input) {
+                surname = prompt ("Введите фамилию сотрудника");
+                name = prompt ("Введите имя сотрудника");
+                rate = +prompt ("Укажите ставку за один рабочий день в рублях");
+                days = +prompt ("Укажите колличество отработанных дней сотрудником");
+
+                if (isNaN(rate) || isNaN(days)) {
+                    let error = confirm ("Ставка и кол-во дней вводится в числовом формате! Нажмите ОК чтобы попробовать снова,\
+ или ОТМЕНА что бы прекратить работу программы");
+                    if (error) location.reload();
+                }
+            } else {
+                surname = "Иванов";
+                name = "Петр";
+                rate = 1500;
+                days = 21;
+            }
+
+            if (!isNaN(rate) || !isNaN(days)){
+                let employee = new Worker (surname, name, rate, days); //данные будут браться из значений соответствующих переменных
+                document.write (`Фамилия: ${employee.surname} <br> Имя: ${employee.name} <br> Ставка за один отработанный день: ${employee.rate} руб. <br> Колличество отработанных дней: ${employee.days}  <br> \
+ Итоговая заработная плата: ${employee.getSalary} руб.`);
+            }
+            
+
+
+
+
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
