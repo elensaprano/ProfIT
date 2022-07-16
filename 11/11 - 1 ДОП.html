@@ -1,0 +1,104 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict"
+            //вычисляет хэш пароля
+            function hashFunction (password, notation) {
+
+                let uniCode = 0;
+
+                for (let i = 0; i < password.length; i++) {
+
+                    let code = password.charCodeAt(i);
+                    uniCode += code;
+                }
+                return (uniCode % 256).toString(notation);
+            }
+            
+            //подбор пароля размещением с повторениями
+            function genWarians(feelLength, passvordHash, notation) {
+
+                let useLiterals = ['0', '1', '2', '3', '4' ,'5', '6', '7', '8', '9'];
+                let placements = [];  //точки размещения
+
+                //начинаем с нулей
+                for (let i=0; i < feelLength; i++) { 
+                    placements.push(0);
+                }
+
+                let count = 0;
+
+                while (count < Math.pow(useLiterals.length, feelLength)) {
+
+                    let placement = "";
+                    //генерируем пароль с типом строка, добавляя элементы из массива по индексу
+                    for (let i=0; i < placements.length; i++) {
+                        placement += useLiterals[placements[i]]; 
+                    }
+                    
+                    placements = incrementPlacements(placements);
+                    count++;
+
+                    //проверяем, подходит ли сгенерированный пароль по хэшу
+                    if (hashFunction(placement,notation) == passvordHash){
+                        return placement;
+                    }
+                }
+                return '';
+            }
+            //воспроизводит работу как в счетчике, увеличивает цифру на единиццу, или если 9 обнуляет ее.
+            function incrementPlacements(placements) {
+
+                let reminder = 1;
+
+                for (let i = 0; i < placements.length; i++) {
+
+                    if (placements[i] == 9 && reminder > 0) {
+                        placements[i] = 0;
+                    } else {
+                        placements[i] = placements[i] + reminder;
+                        reminder = 0;
+                    }
+                }
+                return placements;
+            }
+
+            let password, notation;
+            let input = confirm (`Нажмите ОК если хотите ввести свой пароль и систему счисления \
+            или ОТМЕНА чтобы вывести готовые данные (qwerty, 16)`);
+
+            if (input) {
+                password = prompt(`Введите желаемый пароль`);
+                notation = prompt(`Введите желаемую систему счисления (от 2 до 36)`)
+                if (notation > 36 || notation < 2) {
+                    let error = confirm("Введена некорректная система счисления! Попробуете еще раз?");
+                    if  (error) location.reload();
+                }
+            } else {
+                password = `qwerty`;
+                notation = 16;
+            }
+
+            let passvordHash = hashFunction(password, notation);
+
+            document.write(`Пароль ${password} <br> Система счисления ${notation} <br> Хэш-код ${passvordHash}`);
+            document.write(`<br>-----------------<br>`);
+            
+            let result;
+
+            for (let i = 1; i < 11; i++) { //цикл для увеличения колличества чисел в пароле
+                result = genWarians(i, passvordHash, notation);
+                if (result) break;
+            }
+            if (result) {
+                document.write(`Подобран пароль ${result}`);
+            } else {
+                document.write(`Подходящий пароль не найден`);
+            }
+                       
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
