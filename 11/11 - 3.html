@@ -1,0 +1,70 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict"
+
+            function hashFunction (password, notation) {
+
+                let uniCode = 0;
+
+                for (let i = 0; i < password.length; i++) {
+
+                    let code = password.charCodeAt(i);
+                    uniCode += code;
+                }
+                return (uniCode % 256).toString(notation);
+            }
+            
+            //подбор пароля
+            function passwordGuessing (passwordHash, notation) {
+
+                let array = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H',
+                'I','J','K','L','M','N','O','P','Q','R','S','T','U','V',
+                'W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+
+                let arrayPassword = [];
+
+                for (let i = 0; i < array.length; i++) {
+                    for (let j = 0; j < array.length; j++){ 
+
+                        let hashСheck = hashFunction(array[i] + array[j], notation);
+
+                        if (hashСheck == passwordHash) {
+                            arrayPassword.push(array[i] + array [j]);
+                        }
+                    }
+                }
+                if (arrayPassword.length > 0) {
+                    return `<br> Подобраны пароли ${arrayPassword}`;
+                } else {
+                    return `<br> Пароля на 2 элемента с таким же хэш-кодом не найдено!`;
+                }
+            }
+
+            let password, notation;
+            let input = confirm (`Нажмите ОК если хотите ввести свой пароль и систему счисления или ОТМЕНА чтобы вывести готовые данные (qwerty, 16)`);
+
+            if (input) {
+
+                password = prompt(`Введите желаемый пароль`);
+                notation = prompt(`Введите желаемую систему счисления (от 2 до 36)`)
+                if (notation > 36 || notation < 2) {
+                    let error = confirm("Введена некорректная система счисления! Попробуете еще раз?");
+                    if  (error) location.reload();
+                }
+
+            } else {
+
+                password = `qwerty`;
+                notation = 16;
+            }
+
+            document.write(`Пароль ${password} <br> Система счисления ${notation} <br> Хэш-код ${hashFunction(password, notation)}`);
+            document.write(`<br>-----------------`);
+            document.write(passwordGuessing(hashFunction(password, notation),notation));            
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    

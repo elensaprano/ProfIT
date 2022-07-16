@@ -1,0 +1,63 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict"
+
+            function hashFunction (password) {
+
+                let uniCode = 0;
+
+                for (let i = 0; i < password.length; i++) {
+
+                    let code = password.charCodeAt(i);
+                    uniCode += code;
+                }
+                return uniCode % 256;
+            }
+
+            function passwordGuessing (unicode, notation) {
+                
+                let arrayPassword = [];
+
+                for (let i = 0; i < unicode; i++) {
+                    for (let j = 0; j < unicode; j++){ 
+                        
+                        if (i + j == unicode) {
+                            arrayPassword.push(String.fromCharCode(i, j).toString(notation));
+                            //но тут выдается много разных вариантов с символами получается
+                        }
+                    }
+                }
+                if (arrayPassword.length > 0) {
+                    return `<br> Подобраны пароли ${arrayPassword}`;
+                } else {
+                    return `<br> Пароля на 2 элемента с таким же хэш-кодом не найдено!`;
+                }
+            }
+
+            let password, notation;
+            let input = confirm (`Нажмите ОК если хотите ввести свой пароль и систему счисления или ОТМЕНА чтобы вывести готовые данные?`);
+
+            if (input) {
+
+                password = prompt(`Введите желаемый пароль`);
+                notation = prompt(`Введите желаемую систему счисления (от 2 до 36)`)
+                if (notation > 36 || notation < 2) {
+                    let error = confirm("Введена некорректная система счисления! Попробуете еще раз?");
+                    if  (error) location.reload();
+                }
+            } else {
+
+                password = `qwerty`;
+                notation = 16;
+            }
+
+            document.write(`Пароль ${password} <br> Система счисления ${notation} <br> Хэш-код ${(hashFunction(password)).toString(notation)}`);
+            document.write(`<br>-----------------`);
+            document.write(passwordGuessing(hashFunction(password), notation));   
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
