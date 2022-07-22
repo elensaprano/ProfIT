@@ -1,0 +1,90 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script> 
+            "use strict"
+            
+            class LRUCash {
+                /**
+                * @param {number} capacity Желаемый размер кэша
+                */
+                constructor (capacity) {
+                    this.capacity  = capacity;
+                    this.arrayCash = [];
+                }
+
+                /**
+                * @param {number} key Ключом является число введенное пользователем для вычисления значения
+                */
+                get(key) {
+                    if (this.arrayCash.length != 0) {   //если кэш уже не пустой
+                        for (let i = 0; i < this.arrayCash.length; i++) { 
+                            if (this.arrayCash[i][0] == key) {   //ищем совпадения ключа, если есть, то возвращаем его значение
+                                let result  = this.arrayCash[i][1]; 
+                                if (i != 0) {  //если этот элемент был не первым в кэше
+                                    this.arrayCash.splice(i, 1);  //то удаляем его с текущего места
+                                    this.arrayCash.unshift([key,result]); //и добавляем в начало
+                                }
+                                return result;
+                            }
+                        }
+                    }
+                    return this.set(key);  //если кэш пустой, вызываем set
+                }
+
+                /**
+                * @param {number} key Ключом является число введенное пользователем для вычисления значения
+                */
+                set (key) {
+                    let value = calculateSum(key);  //вычисляем значение введенного числа
+                    this.arrayCash.unshift([key, value]); //добавляем его в начало кэша
+                    if (this.arrayCash.length > this.capacity) {  //если длинна кэша больше необходимого, удаляем последний элемент
+                        this.arrayCash.pop();
+                    }
+                    return value; //значение вернется в get, из get в качестве результата
+                }
+            }
+
+            function calculateSum(number) {
+                let sum = 0;
+                for (let i = 0; i < number; i++) {
+                    sum += i;
+                }
+                return sum;
+            }
+
+            
+            let capacity = Number(prompt('Введите желаемый размер кэша:'));
+            let error;
+
+            if (isNaN(capacity) || capacity < 2) {
+                error = confirm('Введены некоректные данные(вводите числа не менее 3 для наглядной работы программы) Нажмите ОК чтобы попробовать еще раз.');
+                if (error) {
+                    location.reload();
+                }                 
+            } else {
+                let obj  = new LRUCash(capacity);
+                while (true) {
+
+                    if (isNaN(capacity) || capacity < 2) break;
+                    let input = Number(prompt('Введите число для вычисления (для завершения работы нажмите ОТМЕНА):'));
+
+                    if (isNaN(input)) {
+                        error = confirm('Необходимо вводить числа! Нажмите ОК чтобы попробовать еще раз.');
+                        if (error) {
+                            input = Number(prompt('Введите число для вычисления (для завершения работы нажмите ОТМЕНА):'));
+                        }                 
+                    }
+                    if (!input) break;
+
+                    alert('Результат вычисления: ' + obj.get(input));
+                    console.log('Введено число ' + input + ' Результат вычисления ' + obj.get(input)); //сделала для наглядности перемещения элементов в кэше
+                    console.log('Кэш: ' + obj.arrayCash);
+                }
+        }
+                
+        </script>
+    </head> 
+    <body>
+    </body>               
+</html>    

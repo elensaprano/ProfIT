@@ -1,0 +1,122 @@
+ <html>
+    <head> 
+        <meta charset="utf-8">
+        <script type="text/javascript" src="cities.js"> </script>
+        <script>
+            "use strict"
+
+            class HashTable {
+                constructor () {  
+
+                    this.hashTable = [];
+                    for (let i = 0; i < 8192; i++){  //заполняем хэш таблицу нужным колличеством эллементов
+                        this.hashTable[i] = [];
+                    }
+                }
+
+                hashFunction (city) {  //функция для вычисления хэша городов
+
+                    let uniCode = 0;
+
+                    for (let i = 0; i < city.length; i++) {
+
+                        let code = city.charCodeAt(i);
+                        uniCode += code;
+                    }
+                    return (uniCode % 8192).toString(10);
+                }
+
+                /**
+                 * @param {string} city - Город который вы хотите добавить в хэш таблицу 
+                */
+                put (city) { 
+
+                    let hashCity = this.hashFunction(city);
+                    let index = this.search(city);  //проверка, если такой город уже добавлен в хэш таблицу, то повторно он не добавляется,    
+                    if (index == -1) {              //но можно считать города с одинаковым названием разными, по условию это неважно
+                        this.hashTable[hashCity].push(city);
+                    } 
+                }
+
+                /**
+                 * @return {number} - Возвращает индекс искомого значения, или -1 если такого города нет
+                 * @param {string} desiredValue - Искомое значение, название города
+                */
+                search (desiredValue) {
+
+                    let hashDesiredValue = this.hashFunction(desiredValue);
+                    if (this.hashTable[hashDesiredValue].length > 0) {
+
+                        for (let i in this.hashTable[hashDesiredValue]){
+                            
+                            if (this.hashTable[hashDesiredValue][i] == desiredValue) {
+                                return i;
+                            }
+                        }
+                    }
+                    return -1;
+                }
+                
+                /**
+                 * @return {string} - Возвращает текст с результатом поиска
+                 * @param {string} desiredСity - Искомое значение, название города
+                */
+                searchCity (desiredСity) {
+
+                    let message;
+                    let hashВesiredСity = this.hashFunction(desiredСity);
+                    let result =  this.search (desiredСity);
+                    if (result != -1) {
+                        message = `Город ${desiredСity} в Хэш таблице есть, хэш ${hashВesiredСity}`;
+                    } else {
+                        message = `Города ${desiredСity} с хэшем ${hashВesiredСity} в Хэш таблице нет`;
+                    }
+                    return message;  
+                }
+
+                /**
+                 * @return {string} - Возвращает текст с результатом удаления 
+                 * @param {string} valueToDelete - Название города, который нужно удалить
+                */
+                deleteCity(valueToDelete) {
+
+                    let message;
+                    let hashValueToDelete = this.hashFunction(valueToDelete);
+                    let result = this.search (valueToDelete);
+                    if (result != -1) {
+                        this.hashTable[hashValueToDelete].splice(result,1);
+                        message = `Город ${valueToDelete} с хэшем ${hashValueToDelete} удален из Хэш таблицы`
+                    } else {
+                        message = `Невозможно удалить город которого нет :)`;
+                    }
+                    return message;
+                }  
+            }
+
+            let hashTableCity  = new HashTable();  //создаем пустую хэш таблицу
+
+            for (let i = 0; i < citiesFile.length; i++) { //заполняем ее элементами из исходного массива
+                hashTableCity.put(citiesFile[i])
+            }
+
+            console.log(hashTableCity);
+            console.log(hashTableCity.searchCity('vfdsgrfsujh'));
+            console.log(hashTableCity.deleteCity('Кемерово'));
+            console.log(hashTableCity);
+            hashTableCity.put('Кемерово');
+            console.log(hashTableCity);
+
+            //проверка, действительно ли в исходном массиве города поторяются
+            // let count = 0;
+            // for (let i in citiesFile){
+            //     if (citiesFile[i] == 'Брентвуд')
+            //     count++
+            // }
+            // console.log(count);
+            
+            
+        </script>
+    </head> 
+    <body> 
+    </body>               
+</html>    
