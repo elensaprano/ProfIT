@@ -103,25 +103,28 @@
                             count++;
                         }
                     }
-
                     let loadFactor = count / this.x;  //вычисляем коэффициент делением колличества заполненых элементов в хэше на общее кол-во элементов в хэше
-
                     if (loadFactor > 0.7) {   //если коэффициент превышен
+                        this.hashTable = this.overhash();
+                    } 
+                    //return loadFactor;
+                }
+                //перехэширование
+                overhash () {        
+                    this.x *= 2;  //удваиваем размер новой хэш таблицы
+                    let oldHashTable = this.hashTable; //перезаписываем старую хэш таблицу в такую же, чтобы далее обнулить this.hashTable
+                    this.hashTable = [];
+                    
+                    for (let i = 0; i < this.x; i++){  //заполняем хэш таблицу нужным колличеством эллементов
+                        this.hashTable[i] = [];
+                    }
 
-                        this.x *= 2;  //удваиваем размер новой хэш таблицы
-                        let oldHashTable = this.hashTable; //перезаписываем старую хэш таблицу в такую же, чтобы далее обнулить this.hashTable
-                        this.hashTable = [];
-                        
-                        for (let i = 0; i < this.x; i++){  //заполняем хэш таблицу нужным колличеством эллементов
-                            this.hashTable[i] = [];
-                        }
-
-                        for (let i = 0; i < oldHashTable.length; i++) {  //в хэш таблицу с новым размеров перехэшируем все элементы из старой таблицы
-                            for (let j = 0; j < oldHashTable[i].length; j++) { 
-                                this.put(oldHashTable[i][j]);
-                            }
+                    for (let i = 0; i < oldHashTable.length; i++) {  //в хэш таблицу с новым размеров перехэшируем все элементы из старой таблицы
+                        for (let j = 0; j < oldHashTable[i].length; j++) { 
+                            this.put(oldHashTable[i][j]);
                         }
                     }
+                    return this.hashTable;
                 }
             }
 
@@ -136,8 +139,7 @@
             // console.log(hashTableCity.searchCity('vfdsgrfsujh'));
             // console.log(hashTableCity.deleteCity('Кемерово'));
             // console.log(hashTableCity);
-            // hashTableCity.put('Кемерово');
-            // console.log(hashTableCity);
+            // console.log(hashTableCity.deleteCity('dsgerag'));
 
             //проверка, действительно ли в исходном массиве города поторяются
             // let count = 0;
