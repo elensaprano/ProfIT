@@ -7,10 +7,12 @@
             class LRUCash {
                 /**
                 * @param {number} capacity Желаемый размер кэша
+                * @param {function} calc Функция по которой будет вычисляться значение
                 */
-                constructor (capacity) {
+                constructor (capacity, calc) {
                     this.capacity  = capacity;
                     this.arrayCash = [];
+                    this.calc = calc;
                 }
 
                 /**
@@ -36,7 +38,7 @@
                 * @param {number} key Ключом является число введенное пользователем для вычисления значения
                 */
                 set (key) {
-                    let value = calculateSum(key);  //вычисляем значение введенного числа
+                    let value = this.calc(key);  //вычисляем значение введенного числа
                     this.arrayCash.unshift([key, value]); //добавляем его в начало кэша
                     if (this.arrayCash.length > this.capacity) {  //если длинна кэша больше необходимого, удаляем последний элемент
                         this.arrayCash.pop();
@@ -63,7 +65,7 @@
                     location.reload();
                 }                 
             } else {
-                let obj  = new LRUCash(capacity);
+                let obj  = new LRUCash(capacity, calculateSum);
                 while (true) {
 
                     if (isNaN(capacity) || capacity < 2) break;
